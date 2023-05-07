@@ -3,6 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { ChatEngineWrapper, Socket, ChatFeed } from 'react-chat-engine';
 
 const ChatEngine = props => {
+    const [showChat, setShowChat] = useState(false);
+
+    useEffect(() => {
+        if (props.visible) {
+            setTimeout(() => {
+                setShowChat(true);
+            }, 500)
+        }
+    })
+
     return (
         <div
             className='transition-5'
@@ -15,7 +25,7 @@ const ChatEngine = props => {
             }
         >
             {
-                props.visible &&
+                showChat &&
                 <ChatEngineWrapper>
                     <Socket 
                         projectID={process.env.REACT_APP_CE_PROJECT_ID}
@@ -33,7 +43,7 @@ export default ChatEngine;
 
 const styles = {
     chatEngineWindow: {
-        width: '100%',  
+        width: '100%',
         backgroundColor: '#fff',
     }
 }
